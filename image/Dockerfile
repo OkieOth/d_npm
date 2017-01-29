@@ -11,9 +11,16 @@ RUN     cd  /opt && \
         tar -xf node.tar && \
         rm -f node.tar && \
         ln -s * node && \
-        cat /etc/environment | sed -e 's-"$-:\/opt\/node\/bin"-'
+        ln -s /opt/node/bin/node /usr/local/bin && \
+        ln -s /opt/node/bin/npm /usr/local/bin
 
+EXPOSE 8080
 
+COPY startDevserver.sh /startDevserver.sh
+
+VOLUME ["/opt/myproject"]
+
+ENTRYPOINT ["/startDevserver.sh"]
 
 
 
